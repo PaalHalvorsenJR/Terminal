@@ -30,8 +30,11 @@ echo "  PROJECT_VERSION: $PROJECT_VERSION" # version in pom, e.g. "1.0-SNAPSHOT"
 echo "computed variables..."
 CURRENT_YEAR=$(date +'%Y')
 echo "  CURRENT_YEAR: $CURRENT_YEAR"
-PATH_TO_MAIN_CLASS="target/classes/${MAIN_CLASS//'.'//}.class"
+#PATH_TO_MAIN_CLASS="target/classes/${MAIN_CLASS//'.'//}.class"
+PATH_TO_MAIN_CLASS="target/classes/${APP_PACKAGE//'.'//}/"
 echo "  PATH_TO_MAIN_CLASS: $PATH_TO_MAIN_CLASS"
+echo "  pwd: "
+pwd
 
 # ------ SETUP DIRECTORIES AND FILES ----------------------------------------
 # Remove previously generated java runtime and installers. Copy all required
@@ -54,6 +57,14 @@ cp "target/${MAIN_JAR}" target/installer/input/libs/
 ## application.
 
 echo "detecting required modules.."
+echo "$JAVA_HOME/bin/jdeps" \
+       -q \
+       --multi-release "${JAVA_VERSION}" \
+       --ignore-missing-deps \
+       --print-module-deps \
+       --class-path "target/installer/input/libs/*" \
+         "$PATH_TO_MAIN_CLASS"
+
 detected_modules=$("$JAVA_HOME/bin/jdeps" \
   -q \
   --multi-release "${JAVA_VERSION}" \
@@ -75,6 +86,14 @@ echo "  detected modules: ${detected_modules}"
 # works with dependencies that are not fully modularized, yet.
 
 echo "creating java runtime image..."
+echo "$JAVA_HOME/bin/jlink" \
+       --strip-native-commands \
+       --no-header-files \
+       --no-man-pages  \
+       --compress=2  \
+       --strip-debug \
+       --add-modules "${detected_modules}" \
+       --output target/java-runtime
 "$JAVA_HOME/bin/jlink" \
   --strip-native-commands \
   --no-header-files \
@@ -88,6 +107,21 @@ echo "creating java runtime image..."
 # In the end we will find the package inside the target/installer directory.
 
 echo "creating installer of type $INSTALLER_TYPE..."
+echo "$JAVA_HOME/bin/jpackage" \
+       --type "$INSTALLER_TYPE" \
+       --dest target/installer \
+       --input target/installer/input/libs \
+       --name "${PROJECT_NAME}" \
+       --main-class "${MAIN_CLASS}" \
+       --main-jar "${MAIN_JAR}" \
+       --runtime-image target/java-runtime \
+       --icon "${ICON_PATH}" \
+       --app-version "${APP_VERSION}" \
+       --vendor "${APP_VENDOR}" \
+       --copyright "Copyright © ${CURRENT_YEAR} ${APP_VENDOR}." \
+       --mac-package-identifier "${APP_PACKAGE}"
+     # --java-options -Xmx2048m \
+
 "$JAVA_HOME/bin/jpackage" \
   --type "$INSTALLER_TYPE" \
   --dest target/installer \
