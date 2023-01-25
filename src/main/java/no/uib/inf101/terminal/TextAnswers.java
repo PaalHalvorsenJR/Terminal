@@ -13,7 +13,7 @@ public class TextAnswers {
   /** In which class is the object cli refers to? */
   static final String q2 = "";
 
-  /** True or false: CommandLineInterface is both a type and interface. */
+  /** True or false: CommandLineInterface is both a type and an interface. */
   static final Boolean q3 = null;
 
   /** True or false: DummyShell is both a class and a type. */
