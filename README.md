@@ -44,7 +44,7 @@ Dette du nå har bevitnet kalles *polymorfisme*, og innebærer at to objekter me
 - [ ] Besvar spørsmålene i `TextAnswers` ([link](./src/main/java/no/uib/inf101/terminal/TextAnswers.java)).
 
 
-✅ Du er klar til å gå videre når testene i `TestTextAnswers` ([link](`./src/test/java/no/uib/inf101/terminal/TestTextAnswers.java)) passerer
+✅ Du er klar til å gå videre når testene i `TestTextAnswers` ([link](./src/test/java/no/uib/inf101/terminal/TestTextAnswers.java)) passerer
 
 ## Kjøre SimpleShell
 
