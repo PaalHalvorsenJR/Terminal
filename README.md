@@ -268,7 +268,7 @@ public class HelloWorld {
 }
 ```
 
-- [ ] Opprett en klasse `CmdJavaProgram` og kopier inn koden under (avhengig av hvor mange metoder du har i `Command` -grensesnittet kan det være du må legge til en metode). Du trenger ikke å forstå alle deler av hva koden gjøre.
+- [ ] Opprett en klasse `CmdJavaProgram` og kopier inn koden under (avhengig av hvor mange metoder du har i `Command` -grensesnittet kan det være du må legge til en metode). Du trenger ikke å forstå alt koden gjør.
 
 ```java
 package no.uib.inf101.terminal;
