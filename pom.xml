@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- Major project properties -->
-    <groupId>no.uib.inf101.app</groupId>
-    <artifactId>SamplePackagedSwingApp</artifactId>
+    <groupId>no.uib.inf101.terminal</groupId> <!-- must match package of Main class -->
+    <artifactId>INF101ShellLab</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Sample Application</name>
+    <name>INF101 Shell Lab</name>
     <packaging>jar</packaging>
 
     <properties>
@@ -17,8 +17,8 @@
         <java.version>17</java.version>
 
         <!-- Properties required for packaging application as JAR and installer -->
-        <app.main.class>no.uib.inf101.terminal.Main</app.main.class>
-        <app.vendor>Torstein Strømme</app.vendor> <!-- copyright holder -->
+        <app.main.class>${groupId}.Main</app.main.class> <!-- name of main class -->
+        <app.vendor>Torstein Strømme</app.vendor> <!-- replace with your name -->
         <app.version>1.0.0</app.version> <!-- version displayed in "about" -->
         <app.installer.macosx.type>dmg</app.installer.macosx.type> <!-- dmg, pkg -->
         <app.installer.windows.type>msi</app.installer.windows.type> <!-- msi, exe -->
@@ -30,6 +30,7 @@
         <maven.compiler.plugin.version>3.10.1</maven.compiler.plugin.version>
         <maven.dependency.plugin.version>3.4.0</maven.dependency.plugin.version>
         <maven.jar.plugin.version>3.3.0</maven.jar.plugin.version>
+        <maven.surefire.plugin.version>3.0.0-M5</maven.surefire.plugin.version>
         <exec.maven.plugin.version>1.6.0</exec.maven.plugin.version>
 
         <!-- Computed properties -->
@@ -99,6 +100,17 @@
                     </archive>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-engine</artifactId>
+                        <version>${junit.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
 
@@ -125,7 +137,7 @@
                         </executions>
                         <configuration>
                             <workingDirectory>${project.basedir}</workingDirectory>
-                            <executable>./build_app_mac.sh</executable>
+                            <executable>./make/build_app_mac.sh</executable>
                             <environmentVariables>
                                 <APP_PACKAGE>${project.groupId}</APP_PACKAGE>
                                 <ABOUT_NAME>${project.name}</ABOUT_NAME>
@@ -168,7 +180,7 @@
                         </executions>
                         <configuration>
                             <workingDirectory>${project.basedir}</workingDirectory>
-                            <executable>build_app_windows.bat</executable>
+                            <executable>./make/build_app_windows.bat</executable>
                             <environmentVariables>
                                 <APP_PACKAGE>${project.groupId}</APP_PACKAGE>
                                 <APP_VENDOR>${app.vendor}</APP_VENDOR>

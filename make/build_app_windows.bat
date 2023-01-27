@@ -29,7 +29,8 @@ ECHO "  PROJECT_NAME: %PROJECT_NAME%"
 ECHO "  PROJECT_VERSION: %PROJECT_VERSION%"
 
 ECHO "computed variables..."
-SET PATH_TO_MAIN="target\classes\%MAIN_CLASS:.=\%.class"
+@REM SET PATH_TO_MAIN="target\classes\%MAIN_CLASS:.=\%.class"
+SET PATH_TO_MAIN="target\classes\%APP_PACKAGE:.=\%"
 ECHO "  PATH_TO_MAIN: %PATH_TO_MAIN%"
 SET YEAR=%DATE:~6,4%
 ECHO "  YEAR: %YEAR%"
