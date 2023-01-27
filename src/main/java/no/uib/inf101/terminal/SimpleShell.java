@@ -27,6 +27,10 @@ public class SimpleShell {
   /// (methods expected to be used by someone outside this class) //////
   //////////////////////////////////////////////////////////////////////
 
+  public SimpleShell() {
+    // TODO: Install core commands SimpleShell supports (pwd, ls, cd)
+  }
+
   // TODO: rename method to fit new interface, annotate with @Override
   // Note: methods with @Override generally do not need javadoc comments,
   // since the javadoc comment is inherited. You should hence remove the

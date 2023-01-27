@@ -208,7 +208,9 @@ if (command != null) {
 
 ### `pwd`, `cd`, og `ls`: kommandoer som trenger kontekst
 
-Vi skal opprette egne klasser for hver av metodene `pwd`, `cd` og `ls`. Dette er kommandoer som har behov for å vite konteksten shellet kjører i. Vi gjør dette ved at SimpleShell gir disse kommandoene en kontekst når de blir installert.
+Vi skal opprette egne klasser for hver av metodene `pwd`, `cd` og `ls`. Dette er SimpleShell sine tre kjerne-kommandoer som alltid må være tilgengelig, og som allerede var implementert; men vi ønsker å benytte oss av samme struktur som de andre kommandoene (jo færre ting som håndteres på en spesiell måte, jo bedre).
+
+Det som skiller disse kommandoene fra echo og exit, er at de har behov for å vite *konteksten* shellet kjører i. Vi løser dette ved at SimpleShell skal gi kommandoene som ønsker det tilgang til Context-objektet når de blir installert.
 
  - [ ] I `Command`: legg til en metode-signatur for å sette kontekst.
 ```java
@@ -225,7 +227,7 @@ command.setContext(this.context);
 Vi er nå klare til å opprette klassene `CmdLs`, `CmdPwd` og `CmdCd` som alle implementerer *Command* -grensesnittet.
 - [ ] La disse klassene ha en instansvariabel for kontekst, og la dem overskrive `setContext` -metoden slik at denne instansvariabelen bli initiert med en verdi når metoden kalles.
 - [ ] Kopier funksjonaliteten fra de tilsvarende metodene i SimpleShell inn i run-metodene i de nye klassene.
-- [ ] Fjern metodene fra SimpleShell (inkludert sekvensen med else-if i executeCommand), og installer dem i stedet i `Main::main` på samme måte som vi gjorde for echo -kommandoen
+- [ ] Fjern metodene fra SimpleShell (inkludert sekvensen med else-if i executeCommand), og installer i stedet kommandoene i *konstruktøren til SimpleShell*. Dette gjøres på samme måte som vi gjorde for echo -kommandoen i Main, men objektet vi kaller installCommand på heter *this* i stedet for *shell*: for eksempel `this.installCommand(new CmdLs())`.
 - [ ] Sjekk at testene fremdeles passerer og at de fremdeles virker i terminal-gui'en
 
 
