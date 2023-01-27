@@ -7,7 +7,7 @@ Samtidig skal vi benytte anledningen til å bli bedre kjent med terminalen, som 
 
 > Kjært barn har mange navn. Under lister vi opp noen synonymer til «terminal» med litt ulike opphav, og som har litt ulike konnotasjoner. I praksis bruker vi disse ordene litt om hverandre.
 > * **Terminal**. Opprinnelig brukt om kombinasjonen av en fysisk skjerm og et tastatur. Disse kunne være et annet sted enn selve datamaskinen. I senere tid har begrepet blitt brukt om programmer som gir et grafisk brukergrensesnitt (et vindu) til et shell. En **konsoll** var en spesiell terminal som var en integrert del av datamaskinen, og som ikke kunne skilles fra den slik man kunne med andre terminaler.
-> * **Shell**. Programmet som vanligvis vises i en terminal. Dette er et rent software-konsept. Et shell *tolker* kommandoer og kan starter andre prosesser. Opprinnelig var dette det dataprogrammet som startet først når oppstarten var ferdig og datamaskinen var klar til bruk. Det ble kalt et shell fordi det «omgav» kjernen i operativsystemet som et skall, og ble for brukerne det eneste de trengte å forholde seg til ved bruk av maskinen. Ordet kommer naturligvis fra tiden før vinduer og mus var vanlig. Det finnes mange ulike shell: for eksempel er **bash** og **zsh** i dag vanlige shell for Linux/Mac mens **cmd** og **PowerShell** er vanlige shell i Windows.
+> * **Shell**. Programmet som vanligvis vises i en terminal. Dette er et rent software-konsept. Et shell *tolker* kommandoer og kan starte andre prosesser. Opprinnelig var dette det dataprogrammet som startet først når oppstarten var ferdig og datamaskinen var klar til bruk. Det ble kalt et shell fordi det «omgav» kjernen i operativsystemet som et skall, og ble for brukerne det eneste de trengte å forholde seg til ved bruk av maskinen. Ordet kommer naturligvis fra tiden før vinduer og mus var vanlig. Det finnes mange ulike shell: for eksempel er **bash** og **zsh** i dag vanlige shell for Linux/Mac mens **cmd** og **PowerShell** er vanlige shell i Windows.
 > * **CLI** (kommandolinjen). Et CLI (*command line interface*) er et program med et tekstbasert grensesnitt, for eksempel et shell. Men en kommandolinje er ikke nødvendigvis knyttet til å navigere et operativsystem og starte andre programmer. For eksempel kan vi lage et tekstbasert spill; dette spillet vil da ha en kommandolinje selv om vi ikke ville kalt det for et shell.
 
 I denne lab'en skal vi lage et enkelt shell for å navigere filsystemet som er løst inspirert av *bash*. Kommandoene vi bruker vil også fungere omtrent på samme måte i zsh og PowerShell.
@@ -58,7 +58,7 @@ Vi ønsker at det grafiske brukergrensesnittet vårt [Terminal](./src/main/java/
 
 - [ ] La `SimpleShell` implementere grensesnittet `CommandLineInterface`.
 - [ ] Opprett de metodene som må implementeres for å oppfylle kontrakten *CommandLineInterface* beskriver. Du kan enten
-  - gi nytt navn til metodene *aKeyIsPressed* og *whatTheScreenLooksLike* slik at de stemmer overens med metodenavnene som er angitt i CommandLineInterface. Når du endrer navnet, bruk din IDE sin «refactor» -funksjonalitet: høyreklikk på metodenavnet og velg *rename symbol* (VS Code) eller *refactor -> rename* (Intellij) eller tilsvarende. Hvis du glemmer dette, må du endre navnet manuelt i alle testene i TestSimpleShellStarter som bruker disse metodenavnene. Alternativt kan du:
+  - gi nytt navn til metodene *aKeyIsPressed* og *whatTheScreenLooksLike* slik at de stemmer overens med metodenavnene som er angitt i CommandLineInterface. Når du endrer navnet, bruk din IDE sin «refactor» -funksjonalitet: høyreklikk på metodenavnet og velg *rename symbol* (VS Code) eller *refactor -> rename* (Eclipse/Intellij) eller tilsvarende. Hvis du glemmer dette, må du endre navnet manuelt i alle testene i TestSimpleShellStarter som bruker disse metodenavnene. Alternativt kan du:
   - opprette metodene som kreves av CommandLineInterface og la dem enkelt og greit kalle på *aKeyIsPressed* og *whatTheScreenLooksLike*.
 - [ ] Husk i *SimpleShell* å bruke `@Override` foran de metodene som opprinnelig er definert i et grensesnitt.
 - [ ] I `Main::main`-metoden: Bytt ut *EchoShell/DummyShell* med *SimpleShell*. Kjør programmet og se at kommandoene `pwd`, `cd` og `ls` virker. Prøv også noe helt annet og se at det kommer en feilmelding uten at java-programmet krasjer.
@@ -97,6 +97,7 @@ Du trenger ikke å ender denne koden helt enda, men dette illustrer hvor vi er p
 
 - [ ] Opprett et nytt grensesnitt som heter `Command` i pakken *no.uib.inf101.terminal*.
   * VS Code: høyreklikk på «terminal» der det står no/uib/inf101/terminal i filutforskeren. ![klikk her i VSCode](./img/vscode-terminalfolder.png) Velg så *new file* og skriv *Command.java*. I den nye filen kan du opprette grensesnittet, og skrive inn koden som vises under.
+  * Eclipse: høyreklikk «no.uib.inf101.terminal» i prosjekt-navigatoren, og velg *new -> Interface*. I boksen som kommer opp, skriv *Command*. Koden som vises under skal nå ha blitt generert automatisk for deg.
   * Intellij: høyreklikk «no.uib.inf101.terminal» i prosjekt-navigatoren, og velg *new -> Java class*. I boksen som kommer opp, skriv *Command* og velg *Interface* i menyen under. Koden som vises under skal nå ha blitt generert automatisk for deg.
 
 Filen skal se nå se slik ut:
@@ -177,7 +178,7 @@ gui.run();
 
 Vi har nå installert kommandoen *echo* i shellet vi bruker i Main-metoden. Det eneste som gjenstår før vi kan bruke echo-kommandoen er at `executeCommand` faktisk slår opp i oppslagsverket og kjører kommandoen.
 
-- [ ] Modifiser `executeCommand` slik at den slår opp på kommandoen og kaller run dersom den fant en kommando med det gitte kommandonavnet.
+- [ ] Modifiser `executeCommand` slik at den slår opp på kommandoen og kaller run dersom den fant en kommando med det gitte kommandonavnet. Siden vi ikke har laget og installert kommandoer for pwd, cd og ls enda lar vi den gamle implementasjonen stå for disse kommandoene.
 ```java
 Command command = this.allCommands.get(commandName);
 if (command != null) {
@@ -202,7 +203,7 @@ if (command != null) {
 ### `exit`: en annen enkel kommando
 
 - [ ] Opprett en ny klasse `CmdExit` etter samme mønster som `CmdEcho`, som også implementerer *Command* -grensesnittet.
-- [ ] I run-metoden, gjør et kall til `System.exit(0);`
+- [ ] I run-metoden, gjør et kall til `System.exit(0);`. Denne metoden kan returnere for eksempel null.
 - [ ] Installer kommandoen i `Main::main` på samme måte som tidligere. 
 - [ ] Sjekk at det fungerer å lukke programmet ved å gi kommandoen `exit`.
 
@@ -237,7 +238,7 @@ Vi er nå klare til å opprette klassene `CmdLs`, `CmdPwd` og `CmdCd` som alle i
 - [ ] La `Command` -grensesnittet ha en default-metode `void setCommandContext(Map<String, Command>)` med en standard-implementasjon som ikke gjør noen ting.
 - [ ] I `SimpleShell::installCommand`, gjør et kall til setCommandContext med this.allCommands som argument.
 - [ ] I `CmdMan`, la det være en instansvariabel av typen `Map<String, Command>`, og initer denne i `setCommandContext`.
-- [ ] I `run` -metoden til `CmdMan`, hent ut riktig Command-objekt fra nevnte instansvariabel og skriv ut resultatet av getManual() kalt på dette objektet.
+- [ ] I `run` -metoden til `CmdMan`, hent ut riktig Command-objekt fra nevnte instansvariabel og returner resultatet av getManual() kalt på dette objektet.
 
 ### Trykk backspace for å fjerne bakerste bokstav i kommandoen
 
@@ -291,7 +292,7 @@ public class CmdJavaProgram implements Command {
    * @param commandName  The name of the command
    * @param mainClass  The class containing a main(String[]) method
    */
-  public JavaProgram(String commandName, Class<?> mainClass) {
+  public CmdJavaProgram(String commandName, Class<?> mainClass) {
     this.mainClass = mainClass;
     this.commandName = commandName;
   }
