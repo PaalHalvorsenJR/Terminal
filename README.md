@@ -291,7 +291,7 @@ public class CmdJavaProgram implements Command {
    * @param commandName  The name of the command
    * @param mainClass  The class containing a main(String[]) method
    */
-  public JavaProgram(String commandName, Class<?> mainClass) {
+  public CmdJavaProgram(String commandName, Class<?> mainClass) {
     this.mainClass = mainClass;
     this.commandName = commandName;
   }

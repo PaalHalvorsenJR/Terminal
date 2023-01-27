@@ -30,7 +30,7 @@ public class TestSimpleShellEcho {
 //    shell.keyPressed('r');
 //    shell.keyPressed('\n');
 //
-//    String expected = "$ echo foo bar \nfoo bar \n$ ";
+//    String expected = "$ echo foo bar\nfoo bar \n$ ";
 //    assertEquals(expected, shell.getScreenContent());
 //  }
 }
