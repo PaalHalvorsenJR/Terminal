@@ -209,7 +209,7 @@ if (command != null) {
 
 ### `pwd`, `cd`, og `ls`: kommandoer som trenger kontekst
 
-Vi skal opprette egne klasser for hver av metodene `pwd`, `cd` og `ls`. Dette er SimpleShell sine tre kjerne-kommandoer som alltid må være tilgengelig, og som allerede var implementert; men vi ønsker å benytte oss av samme struktur som de andre kommandoene (jo færre ting som håndteres på en spesiell måte, jo bedre).
+Vi skal opprette egne klasser for hver av kommandoene `pwd`, `cd` og `ls`. Dette er SimpleShell sine tre kjerne-kommandoer som alltid må være tilgengelig, og som allerede var implementert; men vi ønsker å benytte oss av samme struktur som de andre kommandoene (jo færre ting som håndteres på en spesiell måte, jo bedre).
 
 Det som skiller disse kommandoene fra echo og exit, er at de har behov for å vite *konteksten* shellet kjører i. Vi løser dette ved at SimpleShell skal gi kommandoene som ønsker det tilgang til Context-objektet når de blir installert.
 
