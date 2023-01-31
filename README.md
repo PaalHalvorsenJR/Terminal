@@ -59,7 +59,7 @@ I resten av oppgaven skal vi modifisere klassen [SimpleShell](./src/main/java/no
 > * det virker sammen med GUI'en vår «Terminal», og
 > * shellet virker med ubegrenset mange kommandoer.
 > 
-> Når laben er gjennomførst skal vi kunne installere så mange kommandoer vi vil i SimpleShell uten å endre mer på kildekoden i SimpleShell-klassen.
+> Når laben er gjennomført skal vi kunne installere så mange kommandoer vi vil i SimpleShell uten at vi trenger å endre ytterligere på kildekoden i SimpleShell-klassen utover det vi gjorde i løpet av denne lab'en.
 
 ### Vis SimpleShell gjennom GUI
 Vi ønsker at det grafiske brukergrensesnittet vårt [Terminal](./src/main/java/no/uib/inf101/terminal/Terminal.java) skal virke sammen med SimpleShell. Konsturktøren til Terminal-klassen aksepterer alle shell og objekter som implementerer *CommandLineInterface*.

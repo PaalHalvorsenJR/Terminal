@@ -79,11 +79,6 @@ public class SimpleShell {
     return s;
   }
 
-  /** Get the context of this shell */
-  public Context getContext() {
-    return this.context;
-  }
-
   // TODO 5: Add method to install a command
 
   //////////////////////////////////////////////////////////////////////
