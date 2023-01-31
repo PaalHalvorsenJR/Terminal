@@ -7,7 +7,7 @@ Samtidig skal vi benytte anledningen til å bli bedre kjent med terminalen, som 
 
 I denne lab'en skal vi modifisere et enkelt shell for å navigere filsystemet som er løst inspirert av *bash*. Kommandoene vi bruker vil også fungere omtrent på samme måte i zsh og PowerShell.
 
-
+* [Anbefalte forberedelser](#anbefalte-forberedelser)
 * [Ordbok: shell og terminal](#ordbok--shell-og-terminal)
 * [Bli kjent med eksisterende kildekode](#bli-kjent-med-eksisterende-kildekode)
 * [Kjøre SimpleShell](#kjøre-simpleshell)
@@ -28,6 +28,15 @@ I denne lab'en skal vi modifisere et enkelt shell for å navigere filsystemet so
   * [Flere kommandoer som trenger kontekst: touch, mkdir, cat, rm, mv, cp](#flere-kommandoer-som-trenger-kontekst--touch-mkdir-cat-rm-mv-cp)
   * [grep: søking i filer](#fgrep--søking-i-filer)
 
+## Anbefalte forberedelser
+
+Les og forstå kursnotater som er spesielt relevante for denne lab'en:
+* Kursnotater om [klasser og objekter](https://inf101.ii.uib.no/notat/objekter/) utgjør grunnlaget vi bygger videre på.
+* Kursnotatene om [grensesnitt](https://inf101.ii.uib.no/notat/grensesnitt/) er særlig relevante for denne lab'en.
+* En skumlesning av avsnittet om [innfødte array'er](https://inf101.ii.uib.no/notat/array/#innf%C3%B8dt-array) i notatene om array og lister kan være greit også.
+
+For de frivillige oppgavene på slutten er også følgende relevant:
+* Avsnittet om [Filer](https://inf101.ii.uib.no/notat/inputoutput/#filer) i notatene om input og output
 
 ## Ordbok: shell og terminal
 
