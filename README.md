@@ -5,16 +5,12 @@ I denne lab'en skal vi utforske *grensesnitt*, og fortsette med å benytte oss a
 
 Samtidig skal vi benytte anledningen til å bli bedre kjent med terminalen, som er et svært viktig verktøy for alle som jobber teknisk med datamaskiner. Både utviklere, system-adminstratorer og vanlige brukere som ønsker å benytte spesialisert software andre har laget vil ha stor glede av den.
 
-> Kjært barn har mange navn. Under lister vi opp noen synonymer til «terminal» med litt ulike opphav, og som har litt ulike konnotasjoner. I praksis bruker vi disse ordene litt om hverandre.
-> * **Terminal**. Opprinnelig brukt om kombinasjonen av en fysisk skjerm og et tastatur. Disse kunne være et annet sted enn selve datamaskinen. I senere tid har begrepet blitt brukt om programmer som gir et grafisk brukergrensesnitt (et vindu) til et shell. En **konsoll** var en spesiell terminal som var en integrert del av datamaskinen, og som ikke kunne skilles fra den slik man kunne med andre terminaler.
-> * **Shell**. Programmet som vanligvis vises i en terminal. Dette er et rent software-konsept. Et shell *tolker* kommandoer og kan starte andre prosesser. Opprinnelig var dette det dataprogrammet som startet først når oppstarten var ferdig og datamaskinen var klar til bruk. Det ble kalt et shell fordi det «omgav» kjernen i operativsystemet som et skall, og ble for brukerne det eneste de trengte å forholde seg til ved bruk av maskinen. Ordet kommer naturligvis fra tiden før vinduer og mus var vanlig. Det finnes mange ulike shell: for eksempel er **bash** og **zsh** i dag vanlige shell for Linux/Mac mens **cmd** og **PowerShell** er vanlige shell i Windows.
-> * **CLI** (kommandolinjen). Et CLI (*command line interface*) er et program med et tekstbasert grensesnitt, for eksempel et shell. Men en kommandolinje er ikke nødvendigvis knyttet til å navigere et operativsystem og starte andre programmer. For eksempel kan vi lage et tekstbasert spill; dette spillet vil da ha en kommandolinje selv om vi ikke ville kalt det for et shell.
-
-I denne lab'en skal vi lage et enkelt shell for å navigere filsystemet som er løst inspirert av *bash*. Kommandoene vi bruker vil også fungere omtrent på samme måte i zsh og PowerShell.
+I denne lab'en skal vi modifisere et enkelt shell for å navigere filsystemet som er løst inspirert av *bash*. Kommandoene vi bruker vil også fungere omtrent på samme måte i zsh og PowerShell.
 
 
 ## Oversikt
 
+* [Bakgrunn: shell og terminal](#bakgrunn--shell-og-terminal)
 * [Bli kjent med eksisterende kildekode](#bli-kjent-med-eksisterende-kildekode)
 * [Kjøre SimpleShell](#kjøre-simpleshell)
   * [Vis SimpleShell gjennom GUI](#vis-simpleshell-gjennom-gui)
@@ -34,6 +30,13 @@ I denne lab'en skal vi lage et enkelt shell for å navigere filsystemet som er l
   * [grep: en bonus-utfordring](#grep--en-bonus-utfordring)
 
 
+## Bakgrunn: shell og terminal
+
+Kjært barn har mange navn. Under lister vi opp noen synonymer til «terminal» med litt ulike opphav, og som har litt ulike konnotasjoner. I praksis bruker vi disse ordene litt om hverandre.
+* **Terminal**. Opprinnelig brukt om kombinasjonen av en fysisk skjerm og et tastatur. Disse kunne være et annet sted enn selve datamaskinen. I senere tid har begrepet blitt brukt om programmer som gir et grafisk brukergrensesnitt (et vindu) til et shell. En **konsoll** var en spesiell terminal som var en integrert del av datamaskinen, og som ikke kunne skilles fra den slik man kunne med andre terminaler.
+* **Shell**. Programmet som vanligvis vises i en terminal. Dette er et rent software-konsept. Et shell *tolker* kommandoer og kan starte andre prosesser. Opprinnelig var dette det dataprogrammet som startet først når oppstarten var ferdig og datamaskinen var klar til bruk. Det ble kalt et shell fordi det «omgav» kjernen i operativsystemet som et skall, og ble for brukerne det eneste de trengte å forholde seg til ved bruk av maskinen. Ordet kommer naturligvis fra tiden før vinduer og mus var vanlig. Det finnes mange ulike shell: for eksempel er **bash** og **zsh** i dag vanlige shell for Linux/Mac mens **cmd** og **PowerShell** er vanlige shell i Windows.
+* **CLI** (kommandolinjen). Et CLI (*command line interface*) er et program med et tekstbasert grensesnitt, for eksempel et shell. Men en kommandolinje er ikke nødvendigvis knyttet til å navigere et operativsystem og starte andre programmer. For eksempel kan vi lage et tekstbasert spill; dette spillet vil da ha en kommandolinje selv om vi ikke ville kalt det for et shell.
+
 ## Bli kjent med eksisterende kildekode
 
 - [ ] Kjør *main*-metoden i `Main` ([link](./src/main/java/no/uib/inf101/terminal/Main.java)) og se at du får opp et vindu du kan skrive i. Sjekk at det virker å skrive, og at du får en ny linje når du trykker enter.
@@ -52,6 +55,11 @@ I resten av oppgaven skal vi modifisere klassen [SimpleShell](./src/main/java/no
 
 - [ ] Kjør testene i `TestSimpleShellStarter` ([link](./src/test/java/no/uib/inf101/terminal/TestSimpleShellStarter.java)) og se at de allerede passerer.
 
+> **Målet med laben.** Før vi gjør noen endringer i det hele tatt, støtter SimpleShell tre kommandoer: pwd, ls og cd. I løpet av laben skal vi oppdatere SimpleShell slik at
+> * det virker sammen med GUI'en vår «Terminal», og
+> * shellet virker med ubegrenset mange kommandoer.
+> 
+> Når laben er gjennomførst skal vi kunne installere så mange kommandoer vi vil i SimpleShell uten å endre mer på kildekoden i SimpleShell-klassen.
 
 ### Vis SimpleShell gjennom GUI
 Vi ønsker at det grafiske brukergrensesnittet vårt [Terminal](./src/main/java/no/uib/inf101/terminal/Terminal.java) skal virke sammen med SimpleShell. Konsturktøren til Terminal-klassen aksepterer alle shell og objekter som implementerer *CommandLineInterface*.
@@ -91,7 +99,7 @@ Som pseudokode kan koden over tolkes slik:
 * Basert på verdien av `commandName`, finn ut hvilken kommando som skal utføres
 * Dersom vi fant en gyldig kommando, utfør den og returner resultatet.
 
-Du trenger ikke å ender denne koden helt enda, men dette illustrer hvor vi er på vei. For å komme oss hit, mangler vi en del ting. For eksempel finnes det ikke en type som heter `Command`. La oss definer den nå:
+Du trenger ikke å ender denne koden helt enda, men dette illustrer hvor vi er på vei. For å komme oss hit, mangler vi en del ting. For eksempel finnes det ikke en type som heter `Command`. La oss definere den nå:
 
 ### Opprette grensesnittet `Command`
 
@@ -157,7 +165,7 @@ Koden over oppretter en variabel som
 * heter `allCommands`, og
 * har typen `HashMap<String, Command>`. Det betyr at typen er et oppslagsverk hvor nøklene er av typen `String`, og verdiene er av typen `Command`.
 
-I tillegg opprettes det et nytt objekt i klassen `HashMap` som da er et tomt oppslagsverk uten noen nøkler eller verdier enda. Det neste vi skal gjøre er å gjøre det mulig å legge til kommandoer i oppslagsverket.
+I tillegg opprettes det et nytt objekt i klassen `HashMap` som ved opprettelse er et tomt oppslagsverk uten noen nøkler eller verdier enda. Det neste vi skal gjøre er å gjøre det mulig å legge til kommandoer i oppslagsverket.
 
 - [ ] Opprett en metode i SimpleShell med signatur `public void installCommand(Command)`. La metoden hente ut navnet fra Command -objektet og opprett et nytt nøkkel-verdi -par i *allCommands* med navnet som nøkkel og Command-objektet som verdi. For eksempel:
 

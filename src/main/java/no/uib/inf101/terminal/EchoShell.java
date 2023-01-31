@@ -1,5 +1,11 @@
 package no.uib.inf101.terminal;
 
+// UiB INF101 ShellLab - EchoShell.java
+//
+// Denne koden er gitt som et eksempel på en klasse som implementerer
+// CommanLineInterface. Du trenger ikke gjøre noen endringer i denne
+// filen for denne lab'en (med mindre du selv ønsker).
+
 import java.util.ArrayList;
 
 public class EchoShell implements CommandLineInterface {

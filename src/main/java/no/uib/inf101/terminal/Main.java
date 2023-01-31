@@ -1,5 +1,8 @@
 package no.uib.inf101.terminal;
 
+// UiB INF101 ShellLab - Main.java
+// Dette er filen som inneholder main-metoden.
+
 public class Main {
 
   public static void main(String[] args) {

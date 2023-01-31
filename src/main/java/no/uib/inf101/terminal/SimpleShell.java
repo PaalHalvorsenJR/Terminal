@@ -1,10 +1,24 @@
 package no.uib.inf101.terminal;
 
+// UiB INF101 ShellLab - SimpleShell.java
+//
+// Dette er klassen vi skal forbedre i denne lab'en. Slik koden er
+// allerede før du begynner på laben, støtter den tre kommandoer:
+//
+// - cd: Bytt til en annen mappe
+// - ls: List opp filer i mappen
+// - pwd: Vis sti til nåværende mappe
+//
+// Vi skal endre denne klassen slik at den
+// - kan vises av Terminal.java
+// - kan støtte ubegrenset mange kommandoer
+
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-// TODO: Let SimpleShell implement CommandLineInterface
+// TODO 1: Let SimpleShell implement CommandLineInterface
 public class SimpleShell {
 
   //////////////////////////////////////////////////////////////////////
@@ -14,24 +28,24 @@ public class SimpleShell {
   /** The prompt to show before each command */
   private final String prompt = "$ ";
   /** The context variable contains cwd and home directories etc. */
-  private final Context context = new Context(
-      new File(System.getProperty("user.dir"))
-  );
+  private final Context context = new Context();
   /** A list of historic commands and their outputs */
-  private final ArrayList<String> history = new ArrayList<>();
+  private final List<String> history = new ArrayList<>();
   /** The command currently being typed */
   private String currentCommand = "";
+  // TODO 4: Create instance variable storing Command objects
 
   //////////////////////////////////////////////////////////////////////
-  /// Public methods                                              //////
+  /// Public instance methods                                     //////
   /// (methods expected to be used by someone outside this class) //////
   //////////////////////////////////////////////////////////////////////
 
+  /** Constructor for SimpleShell */
   public SimpleShell() {
-    // TODO: Install core commands SimpleShell supports (pwd, ls, cd)
+    // TODO 7-8-9: Install core commands SimpleShell supports (pwd, ls, cd)
   }
 
-  // TODO: rename method to fit new interface, annotate with @Override
+  // TODO 2: rename method to fit new interface, annotate with @Override
   // Note: methods with @Override generally do not need javadoc comments,
   // since the javadoc comment is inherited. You should hence remove the
   // javadoc comment here unless there is something special about this
@@ -49,7 +63,7 @@ public class SimpleShell {
     }
   }
 
-  // TODO: rename method to fit new interface, annotate with @Override
+  // TODO 3: rename method to fit new interface, annotate with @Override
   /**
    * Get the text which the terminal should display
    *
@@ -64,6 +78,13 @@ public class SimpleShell {
     s += this.currentCommand;
     return s;
   }
+
+  /** Get the context of this shell */
+  public Context getContext() {
+    return this.context;
+  }
+
+  // TODO 5: Add method to install a command
 
   //////////////////////////////////////////////////////////////////////
   /// Private methods                                ///////////////////
@@ -102,7 +123,8 @@ public class SimpleShell {
    * @return  The output of the command
    */
   private String executeCommand(String commandName, String[] args) {
-    // TODO: Change sequence of if/else if below to a lookup in a map
+    // TODO 6: Call run on Command object for given commandName if present
+    // TODO 7-8-9: Remove if's for cd, ls, pwd once installed as commands
     if (Objects.equals(commandName, "pwd")) {
       return this.doPwd(args);
     } else if (Objects.equals(commandName, "cd")) {
@@ -114,12 +136,12 @@ public class SimpleShell {
     }
   }
 
-  // TODO: remove this method and replace it with Command -type object
+  // TODO 7: remove this method and replace it with Command -type object
   private String doPwd(String[] args) {
     return this.context.getCwd().getAbsolutePath();
   }
 
-  // TODO: remove this method and replace it with Command -type object
+  // TODO 8: remove this method and replace it with Command -type object
   private String doCd(String[] args) {
     if (args.length == 0) {
       this.context.goToHome();
@@ -135,7 +157,7 @@ public class SimpleShell {
     }
   }
 
-  // TODO: remove this method and replace it with Command -type object
+  // TODO 9: remove this method and replace it with Command -type object
   private String doLs(String[] args) {
     File cwd = this.context.getCwd();
     String s = "";
