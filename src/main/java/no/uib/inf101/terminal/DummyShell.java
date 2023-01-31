@@ -17,7 +17,6 @@ public class DummyShell implements CommandLineInterface {
     } else {
       screenContent += key;
     }
-    System.out.println((int) key);
   }
 
   @Override
