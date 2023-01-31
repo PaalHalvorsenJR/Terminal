@@ -11,12 +11,13 @@ public class DummyShell implements CommandLineInterface {
   private String screenContent = "$ ";
 
   @Override
-  public void keyPressed(char keyCode) {
-    if (keyCode == '\n') {
+  public void keyPressed(char key) {
+    if (key == '\n') {
       screenContent += "\n$ ";
     } else {
-      screenContent += keyCode;
+      screenContent += key;
     }
+    System.out.println((int) key);
   }
 
   @Override

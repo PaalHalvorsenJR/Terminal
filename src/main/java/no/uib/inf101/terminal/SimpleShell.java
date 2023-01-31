@@ -60,6 +60,8 @@ public class SimpleShell {
       this.processCurrentCommandLine();
     } else if (key >= ' ' && key <= '~') {
       this.currentCommand += key;
+    } else {
+      // Some special key was pressed (e.g. shift, ctrl), we ignore it
     }
   }
 

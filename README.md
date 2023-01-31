@@ -8,9 +8,7 @@ Samtidig skal vi benytte anledningen til å bli bedre kjent med terminalen, som 
 I denne lab'en skal vi modifisere et enkelt shell for å navigere filsystemet som er løst inspirert av *bash*. Kommandoene vi bruker vil også fungere omtrent på samme måte i zsh og PowerShell.
 
 
-## Oversikt
-
-* [Bakgrunn: shell og terminal](#bakgrunn--shell-og-terminal)
+* [Ordbok: shell og terminal](#ordbok--shell-og-terminal)
 * [Bli kjent med eksisterende kildekode](#bli-kjent-med-eksisterende-kildekode)
 * [Kjøre SimpleShell](#kjøre-simpleshell)
   * [Vis SimpleShell gjennom GUI](#vis-simpleshell-gjennom-gui)
@@ -19,18 +17,19 @@ I denne lab'en skal vi modifisere et enkelt shell for å navigere filsystemet so
   * [Definere metoder i Command](#definere-metoder-i-command)
   * [Vår første kommando: echo](#vår-første-kommando--echo)
 * [Installere kommandoer i SimpleShell](#installere-kommandoer-i-simpleshell)
-* [Frivillige forbedringer](#frivillige-forbedringer)
+* [Anbefalte forbedringer](#anbefalte-forbedringer)
   * [exit: en annen enkel kommando](#exit--en-annen-enkel-kommando)
   * [pwd, cd og ls: kommandoer som trenger kontekst](#pwd--cd--og-ls--kommandoer-som-trenger-kontekst)
   * [man: kommando for å lese manualen](#man--kommando-for-å-lese-manualen)
   * [Trykk backspace for å fjerne bakerste bokstav i kommandoen](#trykk-backspace-for-å-fjerne-bakerste-bokstav-i-kommandoen)
   * [Starte Java-programmer fra SimpleShell](#starte-java-programmer-fra-simpleshell)
+* [Flere frivillige forbedringer](#flere-frivillige-forbedringer)
   * [Forbedret ls: ls -l, ls -a, ls path/to/folder](#forbedret-ls--ls--l--ls--a--ls-pathtofolder)
   * [Flere kommandoer som trenger kontekst: touch, mkdir, cat, rm, mv, cp](#flere-kommandoer-som-trenger-kontekst--touch-mkdir-cat-rm-mv-cp)
-  * [grep: en bonus-utfordring](#grep--en-bonus-utfordring)
+  * [grep: søking i filer](#fgrep--søking-i-filer)
 
 
-## Bakgrunn: shell og terminal
+## Ordbok: shell og terminal
 
 Kjært barn har mange navn. Under lister vi opp noen synonymer til «terminal» med litt ulike opphav, og som har litt ulike konnotasjoner. I praksis bruker vi disse ordene litt om hverandre.
 * **Terminal**. Opprinnelig brukt om kombinasjonen av en fysisk skjerm og et tastatur. Disse kunne være et annet sted enn selve datamaskinen. I senere tid har begrepet blitt brukt om programmer som gir et grafisk brukergrensesnitt (et vindu) til et shell. En **konsoll** var en spesiell terminal som var en integrert del av datamaskinen, og som ikke kunne skilles fra den slik man kunne med andre terminaler.
@@ -206,7 +205,9 @@ if (command != null) {
 ✅ Du er ferdig med den obligatoriske delen av laben når testen i `TestSimpleShellEcho` er aktivert og passerer (i tillegg til at testene i `TestCmdEcho`, `TestSimpleShell` og `TestTextAnswers` fremdeles passerer).
 
 
-## Frivillige forbedringer
+## Anbefalte forbedringer
+
+Forbedringene i dette avsnittet er frivillige med tanke på å bestå laben, men er sterkt anbefalt å prøve seg på.
 
 ### `exit`: en annen enkel kommando
 
@@ -363,6 +364,10 @@ shell.installCommand(new CmdJavaProgram("new", Main.class));
 Hva er det som skjer?
 
 
+## Flere frivillige forbedringer
+
+Forbedringene under krever at du setter deg litt inn i `File` -klassen. Du kan lese litt om denne i [kursnotatene](https://inf101.ii.uib.no/notat/inputoutput/#filer) eller slå opp i den [offisielle dokumentasjonen](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html).
+
 ### Forbedret `ls`: `ls -l`, `ls -a`, `ls path/to/folder`
 
 I bash har kommandoen `ls` flere muligheter enn det vi så langt har laget. For eksempel:
@@ -384,19 +389,23 @@ Det kan være en fin øvelse å gjenskape dette for vår `ls` -kommando.
 * `mv source target` endrer navn på filen eller mappen *source* til filnavnet/mappenavnet *target*. Dette kan innebære flytting hvis target er en sti til en annen mappe. Dersom *target* er en mappe som finnes fra før, flyttes *source* -filen/mappen til *target* -mappen og beholder sitt opprinnelige navn.
 * `cp source target` det samme som mv, men lager en kopi i stedet for å flytte.
 
-### `grep`: en bonus-utfordring
+### `fgrep`: søking i filer
 
-Grep er på mange måter *cat* med inkludert filter. Den skriver kun ut de linjene som har innhold som matcher søkeordet. Standard bruk:
+*Grep* og lillebroren *fgrep* er på mange måter *cat* med et søkefilter inkludert. Den skriver kun ut de linjene som har innhold som matcher søkeordet. Standard bruk:
 
-`grep searchword filename`
+`fgrep searchword filename`
 
-Vi anbefaler alle å bli kjent med hvordan grep virker i shell som bash. De ambisiøse kan også implementere det de klarer av den til bruk i vårt eget SimpleShell.
+Vi anbefaler alle å bli kjent med hvordan grep/fgrep virker i bash. De ambisiøse kan også implementere det de klarer av fgrep til bruk i vårt eget SimpleShell:
 
-* `grep -i searchword filename` ignorerer case, dvs søkeordet `abc` vil få treff på `aBC`
-* `grep -v searchword filename` skriver ut alle linjene som *ikke* matcher søkeordet
-* `grep searchword foldername` kjører grep på alle filer i mappen. I utskriften skrives navnet på filen ut først, og så linjene i den filen.
-* `grep -l searchword foldername` skriver kun ut navnet på filene med innhold som matcher, uten å skrive ut selve treffene
-* `grep -L searchword foldername` skriver kun ut navnet på filene *uten* innhold som matcher
-* `grep -r searchword foldername` kjører grep på alle filer i mappen *og* på alle filer i alle undermapper i uendelig dypde.
+* `fgrep searchword filename -n` viser linjenummer
+* `fgrep searchword filename -i` ignorerer case, dvs søkeordet `abc` vil få treff på `aBC`
+* `fgrep searchword filename -v` skriver ut alle linjene som *ikke* matcher søkeordet
+* `fgrep searchword filename -c` skriver ut hvor mange linjer som matchet søkeordet
+* `fgrep searchword *` kjører grep på alle filer i current working directory. Hvis kombinert med `-n` viser utskriften navnet på filen ut først, og så linjenummer i den filen.
+* `fgrep searchword * -l` skriver kun ut navnet på filene med innhold som matcher, uten å skrive ut selve treffene
+* `fgrep searchword * -L` skriver kun ut navnet på filene *uten* innhold som matcher
+* `fgrep searchword foldername -r` kjører grep på alle filer i mappen *og* på alle filer i alle undermapper i uendelig dypde.
 
-Prøv deg frem og sammenlign med hva som skjer i bash. Les mer om grep [her](https://www.opensourceforu.com/2012/06/beginners-guide-gnu-grep-basics/) eller en annen introduksjon [her](https://danielmiessler.com/study/grep/).
+Flagg (delen av kommandoene som begynner med `-`) kan ofte kombineres, for eksempel vil `-ni` både vise linjenummer og ignorere case. Du trenger ikke håndtere søkeord som inneholder mellomrom i første omgang, det blir eventuelt en superbonusoppgave.
+
+Prøv deg frem og sammenlign med hva som skjer i bash. Les mer om grep i introduksjonen til [ryanstutorials](https://ryanstutorials.net/linuxtutorial/grep.php), [opensourceforu](https://www.opensourceforu.com/2012/06/beginners-guide-gnu-grep-basics/) eller [danielmiessler](https://danielmiessler.com/study/grep/).

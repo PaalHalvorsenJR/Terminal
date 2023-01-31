@@ -13,13 +13,13 @@ public class EchoShell implements CommandLineInterface {
   String currentLine = "";
 
   @Override
-  public void keyPressed(char keyCode) {
-    if (keyCode == '\n') {
+  public void keyPressed(char key) {
+    if (key == '\n') {
       outputLines.add("$ " + currentLine);
       outputLines.add("Oh, an echo! listen: " + currentLine);
       currentLine = "";
     } else {
-      currentLine += keyCode;
+      currentLine += key;
     }
   }
 
