@@ -255,7 +255,7 @@ Vi er nå klare til å opprette klassene `CmdLs`, `CmdPwd` og `CmdCd` som alle i
 * `man command` gir oss manualen til kommandoen `command`.
 
 - [ ] La `Command` -grensesnittet ha en metode `String getManual()` som returnerer instruksjoner for hvordan kommandoen brukes. Du må nå oppdatere alle klassene som implementerer Command slik at de implementerer metoden og returnerer en hensiktsmessig hjelpetekst.
-- [ ] La `Command` -grensesnittet ha en default-metode `void setCommandContext(Map<String, Command>)` med en standard-implementasjon som ikke gjør noen ting.
+- [ ] La `Command` -grensesnittet ha en default-metode `default void setCommandContext(Map<String, Command>)` med en standard-implementasjon som ikke gjør noen ting.
 - [ ] I `SimpleShell::installCommand`, gjør et kall til setCommandContext med this.allCommands som argument.
 - [ ] I `CmdMan`, la det være en instansvariabel av typen `Map<String, Command>`, og initer denne i `setCommandContext`.
 - [ ] I `run` -metoden til `CmdMan`, hent ut riktig Command-objekt fra nevnte instansvariabel og returner resultatet av getManual() kalt på dette objektet.
