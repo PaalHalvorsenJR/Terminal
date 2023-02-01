@@ -175,7 +175,7 @@ Koden over oppretter en variabel som
 
 I tillegg opprettes det et nytt objekt i klassen `HashMap` som ved opprettelse er et tomt oppslagsverk uten noen nøkler eller verdier enda. Det neste vi skal gjøre er å gjøre det mulig å legge til kommandoer i oppslagsverket.
 
-- [ ] Opprett en metode i SimpleShell med signatur `public void installCommand(Command)`. La metoden hente ut navnet fra Command -objektet og opprett et nytt nøkkel-verdi -par i *allCommands* med navnet som nøkkel og Command-objektet som verdi. For eksempel:
+- [ ] Opprett en metode i SimpleShell med signatur `public void installCommand(Command command)`. La metoden hente ut navnet fra Command -objektet og opprett et nytt nøkkel-verdi -par i *allCommands* med navnet som nøkkel og Command-objektet som verdi. For eksempel:
 
 ```java
 this.allCommands.put(command.getName(), command);
