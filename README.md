@@ -375,7 +375,7 @@ Hva er det som skjer?
 
 ## Flere frivillige forbedringer
 
-Forbedringene under krever at du setter deg litt inn i `File` -klassen. Du kan lese litt om denne i [kursnotatene](https://inf101.ii.uib.no/notat/inputoutput/#filer) eller slå opp i den [offisielle dokumentasjonen](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html).
+Forbedringene under krever at du setter deg inn i `File` -klassen fra Java sitt standardbibliotek, og bruker `Context` -klassen som følger med dette prosjektet aktivt. Du kan lese litt om `File` i [kursnotatene](https://inf101.ii.uib.no/notat/inputoutput/#filer) eller slå opp i den [offisielle dokumentasjonen](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html).
 
 ### Forbedret `ls`: `ls -l`, `ls -a`, `ls path/to/folder`
 
