@@ -19,13 +19,14 @@ import java.util.List;
 import java.util.Objects;
 
 // TODO 1: Let SimpleShell implement CommandLineInterface
-public class SimpleShell implements CommandLineInterface{ 
+public class SimpleShell implements CommandLineInterface {
+
   //////////////////////////////////////////////////////////////////////
   /// Instance variables ///////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////
 
   /** The prompt to show before each command */
-  private final String prompt = " $";
+  private final String prompt = "$ ";
   /** The context variable contains cwd and home directories etc. */
   private final Context context = new Context();
   /** A list of historic commands and their outputs */
@@ -58,15 +59,12 @@ public class SimpleShell implements CommandLineInterface{
   public void keyPressed(char key) {
     if (key == '\n') {
       this.processCurrentCommandLine();
-    } else if (key == '\t') {
-      // Ignore tab key
     } else if (key >= ' ' && key <= '~') {
       this.currentCommand += key;
     } else {
       // Some special key was pressed (e.g. shift, ctrl), we ignore it
     }
   }
-
 
   // TODO 3: rename method to fit new interface, annotate with @Override
   /**
@@ -75,7 +73,7 @@ public class SimpleShell implements CommandLineInterface{
    * @return the text
    */
   @Override
-  public String getScreenContent(){
+  public String getScreenContent() {
     String s = "";
     for (String line : this.history) {
       s += line;
@@ -130,7 +128,6 @@ public class SimpleShell implements CommandLineInterface{
       return this.doPwd(args);
     } else if (Objects.equals(commandName, "cd")) {
       return this.doCd(args);
-
     } else if (Objects.equals(commandName, "ls")) {
       return this.doLs(args);
     } else {

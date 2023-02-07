@@ -7,7 +7,7 @@ public class Main {
 
   public static void main(String[] args) {
     // Create a new shell
-    CommandLineInterface shell = new EchoShell();
+    CommandLineInterface shell = new SimpleShell();
 
     // Run the shell in the terminal GUI
     Terminal gui = new Terminal(shell);
