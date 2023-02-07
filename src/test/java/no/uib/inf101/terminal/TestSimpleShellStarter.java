@@ -23,71 +23,71 @@ public class TestSimpleShellStarter {
 
     @Test
     public void testDoNothing() {
-        assertEquals("$ ", shell.whatTheScreenLooksLike());
+        assertEquals("$ ", shell.getScreenContent());
     }
 
     @Test
     public void testWriteFoo() {
-        shell.aKeyIsPressed('f');
-        shell.aKeyIsPressed('o');
-        shell.aKeyIsPressed('o');
+        shell.keyPressed('f');
+        shell.keyPressed('o');
+        shell.keyPressed('o');
 
-        assertEquals("$ foo", shell.whatTheScreenLooksLike());
+        assertEquals("$ foo", shell.getScreenContent());
     }
 
     @Test
     public void testIllegalCommand() {
-        shell.aKeyIsPressed('f');
-        shell.aKeyIsPressed('o');
-        shell.aKeyIsPressed('o');
-        shell.aKeyIsPressed('\n');
+        shell.keyPressed('f');
+        shell.keyPressed('o');
+        shell.keyPressed('o');
+        shell.keyPressed('\n');
 
-        assertEquals("$ foo\nCommand not found: \"foo\"\n$ ", shell.whatTheScreenLooksLike());
+        assertEquals("$ foo\nCommand not found: \"foo\"\n$ ", shell.getScreenContent());
     }
 
     @Test
     public void testPwd() throws IOException {
-        shell.aKeyIsPressed('p');
-        shell.aKeyIsPressed('w');
-        shell.aKeyIsPressed('d');
-        shell.aKeyIsPressed('\n');
+        shell.keyPressed('p');
+        shell.keyPressed('w');
+        shell.keyPressed('d');
+        shell.keyPressed('\n');
 
         String expected = "$ pwd" + "\n" + this.dir.getCanonicalPath() + "\n$ ";
-        assertEquals(expected, shell.whatTheScreenLooksLike());
+        assertEquals(expected, shell.getScreenContent());
     }
 
     @Test
     public void testLs() throws IOException {
-        shell.aKeyIsPressed('l');
-        shell.aKeyIsPressed('s');
-        shell.aKeyIsPressed('\n');
+        shell.keyPressed('l');
+        shell.keyPressed('s');
+        shell.keyPressed('\n');
 
         String expected = "$ ls\n" + SUBDIR + " \n$ ";
-        assertEquals(expected, shell.whatTheScreenLooksLike());
+        assertEquals(expected, shell.getScreenContent());
     }
 
     @Test
     public void testCd() throws IOException {
-        shell.aKeyIsPressed('p');
-        shell.aKeyIsPressed('w');
-        shell.aKeyIsPressed('d');
-        shell.aKeyIsPressed('\n');
+        shell.keyPressed('p');
+        shell.keyPressed('w');
+        shell.keyPressed('d');
+        shell.keyPressed('\n');
 
-        shell.aKeyIsPressed('c');
-        shell.aKeyIsPressed('d');
-        shell.aKeyIsPressed(' ');
-        shell.aKeyIsPressed('s');
-        shell.aKeyIsPressed('u');
-        shell.aKeyIsPressed('b');
-        shell.aKeyIsPressed('d');
-        shell.aKeyIsPressed('i');
-        shell.aKeyIsPressed('r');
-        shell.aKeyIsPressed('\n');
+        shell.keyPressed('c');
+        shell.keyPressed('d');
+        shell.keyPressed(' ');
+        shell.keyPressed('s');
+        shell.keyPressed('u');
+        shell.keyPressed('b');
+        shell.keyPressed('d');
+        shell.keyPressed('i');
+        shell.keyPressed('r');
+        shell.keyPressed('\n');
 
-        shell.aKeyIsPressed('p');
-        shell.aKeyIsPressed('w');
-        shell.aKeyIsPressed('d');
-        shell.aKeyIsPressed('\n');
+        shell.keyPressed('p');
+        shell.keyPressed('w');
+        shell.keyPressed('d');
+        shell.keyPressed('\n');
 
 
         String expected = "$ pwd\n"
@@ -97,7 +97,7 @@ public class TestSimpleShellStarter {
             + this.subdir.getCanonicalPath() + "\n"
             + "$ ";
 
-        assertEquals(expected, shell.whatTheScreenLooksLike());
+        assertEquals(expected, shell.getScreenContent());
     }
 
 
