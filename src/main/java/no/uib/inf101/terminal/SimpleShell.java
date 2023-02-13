@@ -17,6 +17,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.HashMap;
 
 // TODO 1: Let SimpleShell implement CommandLineInterface
 public class SimpleShell implements CommandLineInterface {
@@ -34,16 +35,20 @@ public class SimpleShell implements CommandLineInterface {
   /** The command currently being typed */
   private String currentCommand = "";
   // TODO 4: Create instance variable storing Command objects
+  private final HashMap<String, Command> allCommands = new HashMap<>();
 
+  // private final HashMap<String, Command> allCommands = new HashMap<>();
   //////////////////////////////////////////////////////////////////////
   /// Public instance methods                                     //////
   /// (methods expected to be used by someone outside this class) //////
   //////////////////////////////////////////////////////////////////////
 
   /** Constructor for SimpleShell */
-  public SimpleShell() {
-    // TODO 7-8-9: Install core commands SimpleShell supports (pwd, ls, cd)
+  public SimpleShell(){
+
   }
+    // TODO 7-8-9: Install core commands SimpleShell supports (pwd, ls, cd)
+  
 
   // TODO 2: rename method to fit new interface, annotate with @Override
   // Note: methods with @Override generally do not need javadoc comments,
@@ -64,6 +69,7 @@ public class SimpleShell implements CommandLineInterface {
     } else {
       // Some special key was pressed (e.g. shift, ctrl), we ignore it
     }
+    
   }
 
   // TODO 3: rename method to fit new interface, annotate with @Override
@@ -95,6 +101,12 @@ public class SimpleShell implements CommandLineInterface {
    * a command name and arguments; executing the command; and adding
    * the result to the history.
    */
+  public void installCommand(Command command){
+    // Objects.requireNonNull(command);
+    this.allCommands.put(command.getName(), command);
+  }
+
+
   private void processCurrentCommandLine() {
     String result = "";
     if (this.currentCommand.length() > 0) {
@@ -124,6 +136,9 @@ public class SimpleShell implements CommandLineInterface {
   private String executeCommand(String commandName, String[] args) {
     // TODO 6: Call run on Command object for given commandName if present
     // TODO 7-8-9: Remove if's for cd, ls, pwd once installed as commands
+    Command command = this.allCommands.get(commandName);
+    if (command != null) {
+      return command.run(args);}
     if (Objects.equals(commandName, "pwd")) {
       return this.doPwd(args);
     } else if (Objects.equals(commandName, "cd")) {

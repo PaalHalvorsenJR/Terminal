@@ -79,7 +79,6 @@ public class TestSimpleShell {
     }
   }
 
-
   @Test
   public void testLs() throws IOException {
     if ((Object) this.shell instanceof CommandLineInterface cli) {
